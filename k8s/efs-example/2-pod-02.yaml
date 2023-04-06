@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "app-2"
+  namespace: default
+spec:
+  containers:
+  - name: app-2
+    image: "debian-slim:latest"
+    volumeMounts:
+    - name: localtime
+      mountPath: /etc/localtime
+    - name: persistent-storage
+      mountPath: /data
+  volumes:
+    - name: localtime
+      hostPath:
+        path: /usr/share/zoneinfo/Asia/Shanghai
+    - name: persistent-storage
+      persistentVolumeClaim:
+        claimName: app
